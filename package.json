@@ -1,0 +1,32 @@
+{
+  "name": "@codyholmes/data-structures",
+  "version": "1.0.0",
+  "description": "Library of data structures",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "keywords": [
+    "Data",
+    "Structures"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "postversion": "git push && git push --tags",
+    "test": "jest --config jestconfig.json"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "author": "Cody Holmes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodyHolmes/data-structures"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.6.2"
+  }
+}
