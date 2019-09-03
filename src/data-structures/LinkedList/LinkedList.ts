@@ -63,9 +63,10 @@ class LinkedList<T> {
   };
 
   public pop = (): INode<T> => {
-    let leader = this.get(this.length - 1);
+    let leader = this.get(this.length - 2);
     let popped = leader.next;
     this.tail = leader;
+    this.tail.next = null;
     this.length--;
     // @ts-ignore
     return popped;
@@ -73,6 +74,7 @@ class LinkedList<T> {
 
   public remove = (index: number): LinkedList<T> => {
     if (index >= this.length) {
+      this.pop();
       return this;
     }
 
@@ -82,7 +84,7 @@ class LinkedList<T> {
     return this;
   };
 
-  public set = (index: number, value: T): LinkedList<T> => {
+  public setValue = (index: number, value: T): LinkedList<T> => {
     const node = this.get(index);
     node.value = value;
     return this;

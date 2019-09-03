@@ -1,1 +1,1 @@
-export * from './data-structures/LinkedList';
+export * from './data-structures/LinkedList/LinkedList';

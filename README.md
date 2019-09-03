@@ -14,19 +14,9 @@ Note: add --save if you are using npm < 5.0.0
 
 In Node.js:
 
-```js
-const ds = require('@codyholmes/data-structures');
+```ts
+const { LinkedList } = require('@codyholmes/data-structures');
 
-const request = async () => {
-  const [err, res] = await tc(fetch('https://randomuser.me/api/'));
-
-  if (err) {
-    // handle error
-  }
-
-  const json = await res.json();
-  console.log(json);
-};
-
-request();
+let myLinkedList = new LinkedList<number>();
+myLinkedList.add(5);
 ```
