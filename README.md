@@ -20,3 +20,9 @@ const { LinkedList } = require('@codyholmes/data-structures');
 let myLinkedList = new LinkedList<number>();
 myLinkedList.add(5);
 ```
+
+## Data Structures Available
+
+- [Linked List - Doubly](src/data-structures/DoublyLinkedList/)
+- [Linked List - Singly](src/data-structures/LinkedList/)
+- [Stack](src/data-structures/Stack/)
