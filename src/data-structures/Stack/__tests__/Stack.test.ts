@@ -21,6 +21,12 @@ test('Stack', () => {
 
   expect(myStack.peek()).toBe(null);
 
+  // Refill
+  myStack.push(5);
+  myStack.push(15);
+  myStack.push(10);
+  myStack.push(1);
+
   myStack.clear();
   expect(myStack.isEmpty()).toBe(true);
   expect(myStack.size()).toBe(0);
