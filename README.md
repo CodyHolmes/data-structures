@@ -23,6 +23,7 @@ myLinkedList.add(5);
 
 ## Data Structures Available
 
+- [Binary Search Tree](src/data-structures/BinarySearchTree/)
 - [Linked List - Doubly](src/data-structures/DoublyLinkedList/)
 - [Linked List - Singly](src/data-structures/LinkedList/)
 - [Stack](src/data-structures/Stack/)
