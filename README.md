@@ -26,5 +26,6 @@ myLinkedList.add(5);
 - [Binary Search Tree](src/data-structures/BinarySearchTree/)
 - [Linked List - Doubly](src/data-structures/DoublyLinkedList/)
 - [Linked List - Singly](src/data-structures/LinkedList/)
+- [Max Binary Heap](src/data-structures/MaxBinaryHeaps/)
 - [Stack](src/data-structures/Stack/)
 - [Queue](src/data-structures/Queue/)
