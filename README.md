@@ -24,9 +24,9 @@ Note: add --save if you are using npm < 5.0.0
 
 In Node.js:
 
-```ts
+```js
 const { LinkedList } = require('@codyholmes/data-structures');
 
-let myLinkedList = new LinkedList<number>();
-myLinkedList.add(5);
+let myLinkedList = new LinkedList();
+myLinkedList.insertFirst(5);
 ```
