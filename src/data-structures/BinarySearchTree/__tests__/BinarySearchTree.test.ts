@@ -1,7 +1,6 @@
 import { BinarySearchTree } from '../BinarySearchTree';
 
 test('BinarySearchTree', () => {
-
   let myBST = new BinarySearchTree<number>();
   myBST.insert(10);
   myBST.insert(15);

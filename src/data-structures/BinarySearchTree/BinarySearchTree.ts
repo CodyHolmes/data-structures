@@ -11,7 +11,7 @@ interface INode<T> {
 
 class BinarySearchTree<T> implements IBinarySearchTree<T> {
   private root: INode<T> | null = null;
-  
+
   public insert = (value: T): BinarySearchTree<T> => {
     const newNode = this.createNode(value);
 
@@ -22,21 +22,18 @@ class BinarySearchTree<T> implements IBinarySearchTree<T> {
     }
 
     let currentNode = this.root;
-    while(true){
+    while (true) {
       // If there is a duplicate return the current BST and don't insert
-      if(value === currentNode.value) return this;
+      if (value === currentNode.value) return this;
 
-      if(value < currentNode.value)
-      {
-        if(currentNode.left === null){
+      if (value < currentNode.value) {
+        if (currentNode.left === null) {
           currentNode.left = newNode;
           return this;
         }
         currentNode = currentNode.left;
-      }
-      else if(value > currentNode.value)
-      {
-        if(currentNode.right === null){
+      } else if (value > currentNode.value) {
+        if (currentNode.right === null) {
           currentNode.right = newNode;
           return this;
         }
@@ -46,13 +43,13 @@ class BinarySearchTree<T> implements IBinarySearchTree<T> {
   };
 
   public contains = (value: T): boolean => {
-    if(this.root === null) return false;
+    if (this.root === null) return false;
     let current: INode<T> | null = this.root;
 
-    while(current){
-      if(value < current.value){
+    while (current) {
+      if (value < current.value) {
         current = current.left;
-      } else if(value > current.value){
+      } else if (value > current.value) {
         current = current.right;
       } else {
         return true;

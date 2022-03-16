@@ -1,7 +1,7 @@
 interface IQueue<T> {
   enqueue(value: T): void;
   dequeue(): T | null;
-  clear() : void;
+  clear(): void;
   isEmpty(): boolean;
   size(): number;
 }
@@ -15,7 +15,7 @@ class Queue<T> implements IQueue<T> {
   private first: INode<T> | null = null;
   private last: INode<T> | null = null;
   public length: number = 0;
-  
+
   public enqueue = (value: T): number => {
     const newNode = this.createNode(value);
 
@@ -28,21 +28,21 @@ class Queue<T> implements IQueue<T> {
     }
 
     // Enqueue new value
-    if(this.last) this.last.next = newNode;
+    if (this.last) this.last.next = newNode;
     this.last = newNode;
     return ++this.length;
   };
 
   public dequeue = (): T | null => {
-    if(!this.first) return null;
+    if (!this.first) return null;
     const temp = this.first;
 
     // if we are removing the last item in the Queue
-    if(this.first === this.last) this.last = null;
+    if (this.first === this.last) this.last = null;
 
     this.first = this.first.next;
     this.length--;
-    return temp.value
+    return temp.value;
   };
 
   public clear = (): void => {

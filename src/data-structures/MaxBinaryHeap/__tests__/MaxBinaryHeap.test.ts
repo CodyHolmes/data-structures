@@ -11,7 +11,7 @@ test('MaxBinaryHeap', () => {
   myMBH.insert(55);
 
   expect(myMBH.values).toEqual([55, 39, 41, 18, 27, 12, 33]);
-  const max = myMBH.extractMax();  
+  const max = myMBH.extractMax();
   expect(max).toBe(55);
   expect(myMBH.values).toEqual([41, 39, 33, 18, 27, 12]);
 });

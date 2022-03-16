@@ -1,7 +1,6 @@
 import { Queue } from '../Queue';
 
 test('Queue', () => {
-
   let myQueue = new Queue<number>();
   myQueue.enqueue(5);
   myQueue.enqueue(15);
@@ -11,7 +10,7 @@ test('Queue', () => {
 
   // Test the order
   const tests = [5, 15, 10, 1];
-  for(let i = 0; i < tests.length; i++){
+  for (let i = 0; i < tests.length; i++) {
     const currentTest = tests[i];
     expect(myQueue.dequeue()).toBe(currentTest);
   }

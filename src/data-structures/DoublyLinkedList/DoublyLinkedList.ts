@@ -14,13 +14,13 @@ interface IDoublyLinkedList<T> {
   insertAt(index: number, value: T): DoublyLinkedList<T>;
   getAt(index: number): INode<T> | null;
   removeAt(index: number): INode<T> | null;
-  clear() : void;
+  clear(): void;
   isEmpty(): boolean;
   size(): number;
   setValue(index: number, value: T): DoublyLinkedList<T>;
   toArray(): T[];
   fromArray(values: T[]): DoublyLinkedList<T>;
-  forEach(fn: Function): void;
+  forEach(fn: () => void): void;
 }
 
 class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
@@ -32,16 +32,16 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     const newNode = this.createNode(value);
 
     // If we have a current head then set its prev to the new node
-    if(this.head) this.head.prev = newNode;
+    if (this.head) this.head.prev = newNode;
 
     // Set the new nodes next to the current head (will be null if empty)
     newNode.next = this.head;
-    
+
     // Set the head to the new node;
     this.head = newNode;
 
     // If this is the first node then set the tail
-    if(this.length === 0) this.tail = this.head;
+    if (this.length === 0) this.tail = this.head;
 
     // Increase the length
     this.length++;
@@ -52,7 +52,7 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
 
   public removeFirst = (): INode<T> | null => {
     // If ths LL is empty return null
-    if(!this.head) return null;
+    if (!this.head) return null;
 
     // Store the current head to return it
     const tempHead = this.head;
@@ -61,19 +61,19 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     this.head = this.head ? this.head.next : null;
 
     // If we still have a head then remove the heads prev
-    if(this.head) this.head.prev = null;
+    if (this.head) this.head.prev = null;
 
     // Decrease the length
     this.length--;
 
     // If the LL is now empty
-    if(this.length === 0) this.tail = null;
+    if (this.length === 0) this.tail = null;
 
     // Return the removed Node
     return tempHead;
   };
 
-  public getFirst = (): INode<T> | null  => {
+  public getFirst = (): INode<T> | null => {
     return this.head;
   };
 
@@ -89,7 +89,7 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
       return this;
     }
 
-    if(this.tail) this.tail.next = newNode;
+    if (this.tail) this.tail.next = newNode;
     newNode.prev = this.tail;
     this.tail = newNode;
     this.length++;
@@ -97,22 +97,22 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
   };
 
   public removeLast = (): INode<T> | null => {
-    if(!this.tail) return null;
+    if (!this.tail) return null;
 
     // Store the current head to return it
     const tempNode = this.tail;
 
     // If there is only one Node
-    if(this.length === 1){
+    if (this.length === 1) {
       this.clear();
       return tempNode;
     }
 
-    let poppedNode = this.tail;
-    let leader = poppedNode.prev;
+    const poppedNode = this.tail;
+    const leader = poppedNode.prev;
 
     // If we dont find the previous return null
-    if(!leader) return null;
+    if (!leader) return null;
 
     leader.next = null;
 
@@ -120,14 +120,14 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     this.length--;
 
     // If the DLL is now empty
-    if(this.length === 0) this.tail = null;
+    if (this.length === 0) this.tail = null;
     else this.tail = leader;
 
     // Return the removed Node
     return tempNode;
   };
 
-  public getLast = (): INode<T> | null  => {
+  public getLast = (): INode<T> | null => {
     return this.tail;
   };
 
@@ -135,7 +135,7 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     // If we are adding to the end
     if (index >= this.length) {
       return this.insertLast(value);
-    } else if (!index || index === 0){
+    } else if (!index || index === 0) {
       return this.insertFirst(value);
     }
 
@@ -144,13 +144,13 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
 
     // Get the Node before the insertion spot
     const leader = this.getAt(index - 1);
-    
+
     // If we dont have a leader then insert at the start
-    if(!leader) return this.insertFirst(value);
+    if (!leader) return this.insertFirst(value);
 
     // Get the Node that is supposed to be after the new Node
     const holdingPointer = leader.next;
-    if(holdingPointer) holdingPointer.prev = newNode;
+    if (holdingPointer) holdingPointer.prev = newNode;
 
     // Insert the new Node
     leader.next = newNode;
@@ -170,38 +170,37 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     let counter = 0;
     let currentNode = this.head;
     while (counter !== index) {
-      currentNode = currentNode? currentNode.next : null;
+      currentNode = currentNode ? currentNode.next : null;
       counter++;
     }
     return currentNode;
   };
 
-  public removeAt = (index?: number): INode<T> | null  => {
-    if(!index || index === 0)  // if we are removing the first item
-    {
+  public removeAt = (index?: number): INode<T> | null => {
+    if (!index || index === 0) {
+      // if we are removing the first item
       return this.removeFirst();
-    }
-    else if (index >= this.length - 1) // if we are removing the last item
-    {
+    } else if (index >= this.length - 1) {
+      // if we are removing the last item
       return this.removeLast();
     }
 
     // Find the node before the removed node
-    let leader = this.getAt(index - 1);
+    const leader = this.getAt(index - 1);
 
     // If we dont have a leader then return null
-    if(!leader) return null;
-    
+    if (!leader) return null;
+
     // Get the node to remove
-    let removedNode = leader.next;
+    const removedNode = leader.next;
 
     // Remove the Node
     leader.next = leader.next ? leader.next.next : null;
 
     // Set the new next nodes previous node
     const nextNode = leader.next;
-    if(nextNode) nextNode.prev = leader;
-    
+    if (nextNode) nextNode.prev = leader;
+
     // Decrease the length
     this.length--;
 
@@ -223,7 +222,7 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
     const node = this.getAt(index);
 
     // If we dont find the node return the original LL
-    if(!node) return this;
+    if (!node) return this;
 
     // Set the value
     node.value = value;
@@ -233,7 +232,7 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
   };
 
   public toArray = (): T[] => {
-    let array: T[] = [];
+    const array: T[] = [];
     let node = this.head;
     while (node) {
       array.push(node.value);
@@ -243,11 +242,11 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
   };
 
   public fromArray = (values: T[]): DoublyLinkedList<T> => {
-    values.forEach(val => this.insertFirst(val));
+    values.forEach((val) => this.insertFirst(val));
     return this;
   };
 
-  public forEach = (fn: Function): void => {
+  public forEach = (fn: (node: INode<T>, counter: number) => void): void => {
     let node = this.head;
     let counter = 0;
     while (node) {
@@ -255,7 +254,7 @@ class DoublyLinkedList<T> implements IDoublyLinkedList<T> {
       node = node.next;
       counter++;
     }
-  }
+  };
 
   private createNode = (value: T): INode<T> => {
     return { value, next: null, prev: null };

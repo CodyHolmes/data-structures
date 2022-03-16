@@ -12,18 +12,18 @@ interface ILinkedList<T> {
   insertAt(index: number, value: T): LinkedList<T>;
   getAt(index: number): INode<T> | null;
   removeAt(index: number): INode<T> | null;
-  clear() : void;
+  clear(): void;
   isEmpty(): boolean;
   size(): number;
   setValue(index: number, value: T): LinkedList<T>;
   toArray(): T[];
   fromArray(values: T[]): LinkedList<T>;
-  forEach(fn: Function): void;
+  forEach(fn: () => void): void;
 }
 
 class LinkedList<T> implements ILinkedList<T> {
   private head: INode<T> | null = null;
-  private tail: INode<T> | null  = null;
+  private tail: INode<T> | null = null;
   public length: number = 0;
 
   public insertFirst = (value: T): LinkedList<T> => {
@@ -31,12 +31,12 @@ class LinkedList<T> implements ILinkedList<T> {
 
     // Set the new nodes next to the current head (will be null if empty)
     newNode.next = this.head;
-    
+
     // Set the head to the new node;
     this.head = newNode;
 
     // If this is the first node then set the tail
-    if(this.length === 0) this.tail = this.head;
+    if (this.length === 0) this.tail = this.head;
 
     // Increase the length
     this.length++;
@@ -45,9 +45,9 @@ class LinkedList<T> implements ILinkedList<T> {
     return this;
   };
 
-  public removeFirst = (): INode<T> | null  => {
+  public removeFirst = (): INode<T> | null => {
     // If ths LL is empty return null
-    if(!this.head) return null;
+    if (!this.head) return null;
 
     // Store the current head to return it
     const tempHead = this.head;
@@ -59,13 +59,13 @@ class LinkedList<T> implements ILinkedList<T> {
     this.length--;
 
     // If the LL is now empty
-    if(this.length === 0) this.tail = null;
+    if (this.length === 0) this.tail = null;
 
     // Return the removed Node
     return tempHead;
-  }
+  };
 
-  public getFirst = (): INode<T> | null  => {
+  public getFirst = (): INode<T> | null => {
     return this.head;
   };
 
@@ -81,30 +81,30 @@ class LinkedList<T> implements ILinkedList<T> {
       return this;
     }
 
-    if(this.tail) this.tail.next = newNode;
+    if (this.tail) this.tail.next = newNode;
     this.tail = newNode;
     this.length++;
     return this;
   };
 
-  public removeLast = (): INode<T> | null  => {
+  public removeLast = (): INode<T> | null => {
     // If ths LL is empty return null
-    if(!this.tail) return null;
+    if (!this.tail) return null;
 
     // Store the current head to return it
     const tempNode = this.tail;
 
     // If there is only one Node
-    if(this.length === 1){
+    if (this.length === 1) {
       this.clear();
       return tempNode;
     }
 
     // Find the node before the last node
-    let leader = this.getAt(this.length - 2);
+    const leader = this.getAt(this.length - 2);
 
     // If we dont find the previous return null
-    if(!leader) return null;
+    if (!leader) return null;
 
     leader.next = null;
 
@@ -112,14 +112,14 @@ class LinkedList<T> implements ILinkedList<T> {
     this.length--;
 
     // If the LL is now empty
-    if(this.length === 0) this.tail = null;
+    if (this.length === 0) this.tail = null;
     else this.tail = leader;
 
     // Return the removed Node
     return tempNode;
-  }
+  };
 
-  public getLast = (): INode<T> | null  => {
+  public getLast = (): INode<T> | null => {
     return this.tail;
   };
 
@@ -127,7 +127,7 @@ class LinkedList<T> implements ILinkedList<T> {
     // If we are adding to the end
     if (index >= this.length) {
       return this.insertLast(value);
-    } else if (!index || index === 0){
+    } else if (!index || index === 0) {
       return this.insertFirst(value);
     }
 
@@ -136,9 +136,9 @@ class LinkedList<T> implements ILinkedList<T> {
 
     // Get the Node before the insertion spot
     const leader = this.getAt(index - 1);
-    
+
     // If we dont have a leader then insert at the start
-    if(!leader) return this.insertFirst(value);
+    if (!leader) return this.insertFirst(value);
 
     // Get the Node that is supposed to be after the new Node
     const holdingPointer = leader.next;
@@ -160,30 +160,29 @@ class LinkedList<T> implements ILinkedList<T> {
     let counter = 0;
     let currentNode = this.head;
     while (counter !== index) {
-      currentNode = currentNode? currentNode.next : null;
+      currentNode = currentNode ? currentNode.next : null;
       counter++;
     }
     return currentNode;
   };
 
-  public removeAt = (index?: number): INode<T> | null  => {
-    if(!index || index === 0)  // if we are removing the first item
-    {
+  public removeAt = (index?: number): INode<T> | null => {
+    if (!index || index === 0) {
+      // if we are removing the first item
       return this.removeFirst();
-    }
-    else if (index >= this.length - 1) // if we are removing the last item
-    {
+    } else if (index >= this.length - 1) {
+      // if we are removing the last item
       return this.removeLast();
     }
 
     // Find the node before the removed node
-    let leader = this.getAt(index - 1);
+    const leader = this.getAt(index - 1);
 
     // If we dont have a leader then return null
-    if(!leader) return null;
-    
+    if (!leader) return null;
+
     // Get the node to remove
-    let removedNode = leader.next;
+    const removedNode = leader.next;
 
     // Remove the Node
     leader.next = leader.next ? leader.next.next : null;
@@ -209,7 +208,7 @@ class LinkedList<T> implements ILinkedList<T> {
     const node = this.getAt(index);
 
     // If we dont find the node return the original LL
-    if(!node) return this;
+    if (!node) return this;
 
     // Set the value
     node.value = value;
@@ -219,7 +218,7 @@ class LinkedList<T> implements ILinkedList<T> {
   };
 
   public toArray = (): T[] => {
-    let array: T[] = [];
+    const array: T[] = [];
     let node = this.head;
     while (node) {
       array.push(node.value);
@@ -229,11 +228,11 @@ class LinkedList<T> implements ILinkedList<T> {
   };
 
   public fromArray = (values: T[]): LinkedList<T> => {
-    values.forEach(val => this.insertFirst(val));
+    values.forEach((val) => this.insertFirst(val));
     return this;
   };
 
-  public forEach = (fn: Function): void => {
+  public forEach = (fn: (node: INode<T>, counter: number) => void): void => {
     let node = this.head;
     let counter = 0;
     while (node) {
@@ -241,7 +240,7 @@ class LinkedList<T> implements ILinkedList<T> {
       node = node.next;
       counter++;
     }
-  }
+  };
 
   private createNode = (value: T): INode<T> => {
     return { value, next: null };
